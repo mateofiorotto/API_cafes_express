@@ -15,6 +15,7 @@ Esta es una API REST simple creada para el parcial de la materia Aplicaciones Hi
 - Implementacion MONGO.
 - npm --> configuraciones - express, mongoose, dotenv, cors.
 - Métodos CRUD
+- Configuracion archivo server.js y database.js
 
 ## Cosas por hacer
 - Pagina principal HTML que muestre los ENDPOINTS y permita acceder mediante URL (etiqueta anchor). Debe incluir pie de pagina con datos.
