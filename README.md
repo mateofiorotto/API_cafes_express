@@ -66,10 +66,10 @@ Se hace manejo de solicitudes y respuestas HTTP y el uso de un servidor local.
 routes)
 
 Cada vista, modelo, controlador y rutas cumple su funcion.
-    - Vistas: todavia no hay vistas
-    - Model: se encarga de modelar la entidad que ira en la DB
-    - Controlador: comunica el modelo con el usuario que realiza peticiones HTTP y valida datos.
-    - Rutas: establece las rutas que el usuario utilizara para realizar peticiones.
+a. Vistas: todavia no hay vistas
+b. Model: se encarga de modelar la entidad que ira en la DB
+c. Controlador: comunica el modelo con el usuario que realiza peticiones HTTP y valida datos.
+d. Rutas: establece las rutas que el usuario utilizara para realizar peticiones.
 
 - Uso correcto de módulos
 
