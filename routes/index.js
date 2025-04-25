@@ -1,11 +1,13 @@
 //Importar rutas
-import coffeesRoutes from "./coffeesRoutes.js";
-import originsRoutes from "./originsRoutes.js";
+import coffeeRouter from "./coffeRouter.js";
+import originRouter from "./originRouter.js";
+import userRouter from "./userRouter.js";
 
-//llamamos a las rutas en esta funcion y las exportamos
+//llamamos a las rutas en esta funcion y las exportamos para usar en server.js
 function routerAPI(app) {
-    app.use("/api/coffees", coffeesRoutes);
-    app.use("/api/origins", originsRoutes);
+    app.use("/api/coffees", coffeeRouter);
+    app.use("/api/origins", originRouter);
+    app.use("/api/users", userRouter);
 }
 
 export default routerAPI;

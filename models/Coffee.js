@@ -1,15 +1,31 @@
 import mongoose from "mongoose";
 
+//Schema de Cafe: name, description, roastLevel, flavorNote, image, origin (relacionado con el modelo Origin)
 const coffeeSchema = new mongoose.Schema({
-    name: String,
-    description: String,
-    roastLevel: String,
-    flavorNote: String,
-    image: String,
-    // origin viene del modelo Origin. Cada cafe tiene un origen y un origen puede tener muchos cafes
+    name: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    roastLevel: {
+        type: String,
+        required: true
+    },
+    flavorNote: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
     origin: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Origin"
+        ref: "Origin",
+        required: true
     }
 });
 

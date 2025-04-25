@@ -1,0 +1,4 @@
+cambie el URI a mongo atlas
+agregada clase, ruta y model user 
+Implementando JWT y rutas protegidas
+Agregados los filtros en el get de coffee (todos juntos)

@@ -1,18 +1,50 @@
 import Coffee from "../models/Coffee.js";
+import Origin from "../models/Origin.js";
 
 //Definir metodos http
 
-// GET
+// GET + Busqueda x nombre
 export const getCoffees = async (req, res) => {
-    try {
-        //populate me permite traer informacion de otro modelo
-        const coffees = await Coffee.find().populate("origin");
-        res.status(200).json({ message: "OK", data: coffees });
-    } catch (error) {
-        console.error("Error al obtener cafés:", error);
-        res.status(500).json({ message: "Error al obtener cafes", error });
+    const { name, roastLevel, origin } = req.query;
+
+    // construir el filtro dinámicamente
+    let filter = {};
+
+    if (name) {
+        filter.name = { $regex: name, $options: 'i' }; // búsqueda flexible
     }
-}
+
+    if (roastLevel) {
+        filter.roastLevel = { $regex: roastLevel, $options: 'i' };
+    }
+
+    if (origin) {
+        const originDocs = await Origin.find({ country: { $regex: origin, $options: 'i' } });
+        console.log(originDocs);
+    
+        if (originDocs.length > 0) {
+            // obtenés un array de ObjectIds
+            const originIds = originDocs.map(doc => doc._id);
+            filter.origin = { $in: originIds }; // ← esto es clave
+        } else {
+            return res.status(404).json({ message: "Origen no encontrado" });
+        }
+    }
+
+    try {
+        const coffees = await Coffee.find(filter);
+
+        if (coffees.length === 0) {
+            return res.status(404).json({ message: "No se encontraron cafés" });
+        }
+
+        res.status(200).json({ message: "OK", data: coffees });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al obtener cafés", error });
+    }
+};
 
 // GET pero con id
 export const getCoffeeById = async (req, res) => {
@@ -59,7 +91,7 @@ export const updateCoffee = async (req, res) => {
 
     try {
         const updatedCoffee = await Coffee.findByIdAndUpdate(id, { name, description, roastLevel, flavorNote, image, origin }, { new: true });
-        
+
         if (!updatedCoffee) {
             res.status(404).json({ message: "Cafe no encontrado" });
         } else {
@@ -76,13 +108,13 @@ export const deleteCoffee = async (req, res) => {
     const { id } = req.params;
 
     try {
-    const coffee = await Coffee.findByIdAndDelete(id);
+        const coffee = await Coffee.findByIdAndDelete(id);
 
-    if (!coffee) {
-        res.status(404).json({ message: "Cafe no encontrado" });    
-    } else {
-        res.status(200).json({ message: "Cafe eliminado", data: coffee });
-    }
+        if (!coffee) {
+            res.status(404).json({ message: "Cafe no encontrado" });
+        } else {
+            res.status(200).json({ message: "Cafe eliminado", data: coffee });
+        }
 
 
     } catch (error) {
@@ -90,3 +122,9 @@ export const deleteCoffee = async (req, res) => {
         res.status(500).json({ message: "Error al eliminar cafe", error });
     }
 }
+
+
+// FILTRAR X roastLevel
+
+// FILTRAR X origin
+

@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 
 //creo la app express
 const app = express();
-app.use(cors()); // admitimos cors para accesos externos
+app.use(cors()); //admitimos cors para accesos externos
 app.use(express.json()); //admitimos json 
 app.use(express.static("public")); //admitimos archivos estaticos. (index, css, etc)
 
@@ -21,10 +21,10 @@ app.use((req, res, next) => {
     next();
 })
 
-//creo la ruta index o root
+//creo la ruta index o root, donde se muestra el index.html (la documentacion)
 app.get('/', (req, res) => {
-    res.status(200).send('<h1>Bienvenido/a a la API REST</h1>')
-})
+    res.status(200).send('public/index.html')
+ })
 
 //llamamos a las rutas
 routerAPI(app);
