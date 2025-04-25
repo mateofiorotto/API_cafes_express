@@ -2,8 +2,8 @@
 
 Esta es una API REST simple creada para el parcial de la materia Aplicaciones Hibridas en la escuela Da Vinci.
 
-[Consignas punto por punto](#consignas-punto-por-punto)
-[Ir a Datos del proyecto (Alumno, profesor, materia, comisión)](#datos-del-proyecto)
+- [Consignas punto por punto](#consignas-punto-por-punto)
+- [Ir a Datos del proyecto (Alumno, profesor, materia, comisión)](#datos-del-proyecto)
 
 ---
 
