@@ -68,7 +68,7 @@
                     <p class="mt-2">Con el servidor prendido, accede a <span
                             class="fw-bold">localhost:PUERTO/api/users</span> mediante el método POST (con POSTMAN)
                     </p>
-                    <p>Luego envia un objeto JSON con el siguiente formato</p>
+                    <p>Luego envia un objeto JSON con el siguiente formato.</p>
                     <div>
                         <pre><code class="codigo-html">
                             <div>
@@ -76,10 +76,12 @@
                                 "name": "Mateo",
                                 "email": "mateo.fiorotto@davinci.edu.ar",
                                 "password": "claveSecreta123"
+                                "role": "admin" 
                             }
                             </div>
                             </code></pre>
                     </div>
+                    <p><span class="fw-bold text-decoration-underline">NOTA:</span> Si quieres usar los métodos como POST, PUT Y DELETE deberas crear un usuario con rol admin. Por defecto es user.</p>
                 </li>
                 <li class="col-12 col-lg-4"><span class="fw-bold">Obtener Token</span>
                     <p class="mt-2">Una vez recibido creado el usuario, puedes chequearlo en <span
@@ -107,7 +109,7 @@
                             </div>
                             </code></pre>
                     <p>Para ello, en "Authorization" marca el tipo de validación como "Bearer" y pega el token</p>
-                    <p>¡Listo! Ya podes probar los endpoints.</p>
+                    <p>¡Listo! Ya podes probar los endpoints (solo siendo admin).</p>
                 </li>
             </ol>
 

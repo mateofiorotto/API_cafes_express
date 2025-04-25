@@ -1,5 +1,5 @@
 import express from "express";
-import auth from "../middleware/auth.js";
+import { validarToken, esAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
 
@@ -9,8 +9,8 @@ import { getOrigins, getOriginById, createOrigin, updateOrigin, deleteOrigin } f
 //definir rutas
 router.get("/", getOrigins);
 router.get("/:id", getOriginById);
-router.post("/", auth, createOrigin);
-router.put("/:id", auth, updateOrigin);
-router.delete("/:id", auth, deleteOrigin);
+router.post("/", validarToken, esAdmin, createOrigin);
+router.put("/:id", validarToken, esAdmin, updateOrigin);
+router.delete("/:id", validarToken, esAdmin, deleteOrigin);
 
 export default router;

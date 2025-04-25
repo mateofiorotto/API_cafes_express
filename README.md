@@ -43,7 +43,7 @@ Estas tres funciones solo estan en el controlador de cafes y en el mismo metodo 
 3. Autenticación (/auth):
 - Aplicar autenticación utilizando JSON Web Tokens (JWT)
 
-Cuenta con un middleware en auth.js que utiliza JWT para verificar si el usuario esta logueado o no. Se utiliza en los metodos POST, PUT y DELETE. El metodo GET es publico para todos los usuarios. No hay roles como administrador / usuario ya que es una API de prueba.
+Cuenta con un middleware en auth.js que utiliza JWT para verificar si el usuario esta logueado o no y otro metodo para verificar si el usuario tiene como rol ADMIN o USER. Se utiliza en los metodos POST, PUT y DELETE. El metodo GET es publico para todos los usuarios. Los usuarios puede crearlos cualquier persona con el rol que desee ya que es a modo de prueba, pero normalmente solo se crearian de forma automatica al mandar el post como user y los administradores a mano desde la DB.
 
 ---
 

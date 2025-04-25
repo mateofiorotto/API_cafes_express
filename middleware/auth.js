@@ -6,7 +6,7 @@ dotenv.config();
 const secretKey = process.env.SECRETKEY;
 
 // middleware que valida el token
-const validarToken = ( req, res, next  ) => {
+export const validarToken = ( req, res, next  ) => {
     const auth = req.headers.authorization;
     
     //verificar si esta el token
@@ -28,11 +28,15 @@ const validarToken = ( req, res, next  ) => {
         console.log({decoded})
         
         //si se decodifica el token, devolver el userID
-        req.body.userId = decoded.userId;
+        req.user = decoded;
         next();
-    })
-
-    
+    })   
 }
 
-export default validarToken;
+//verificar si es admin para usar los metodos http, excepto GET
+export const esAdmin = (req, res, next) => {
+    if (!req.user || req.user.role !== 'admin') {
+      return res.status(403).json({ msg: 'Acceso solo para administradores' });
+    }
+    next();
+};

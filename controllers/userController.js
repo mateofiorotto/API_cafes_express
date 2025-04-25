@@ -13,10 +13,10 @@ const salt = 10;
 
 // Metodo POST para crear un usuario
 export const createUser = async ( req, res ) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
-    if( !name || !email || !password){
-        res.status(400).json({ msg: 'Faltan datos OBLIGATORIOS', data: { name, email, password }  })
+    if( !name || !email || !password, !role){
+        res.status(400).json({ msg: 'Faltan datos OBLIGATORIOS', data: { name, email, password, role }  })
     }
     
     try {
@@ -32,7 +32,7 @@ export const createUser = async ( req, res ) => {
         //hashear pw
         const passwordHash = await bcrypt.hash(password, salt);
         //Instanciar modelo y hashear pw
-        const newUser = new User({ name, email, password: passwordHash })
+        const newUser = new User({ name, email, password: passwordHash, role })
         await newUser.save();
         res.status(200).json({ msg: 'Usuario Creado', data: newUser})
     } catch (error) {
@@ -60,7 +60,8 @@ export const login = async ( req, res) => {
         //si todo esta OK guardar token
         const data = {
             userId: user._id,
-            name: user.name
+            name: user.name,
+            role: user.role
         }
         //creamos el token jwt
         const token = jwt.sign( data, secretKey, { expiresIn: '1h'} );
@@ -118,10 +119,13 @@ export const deleteUserById = async ( req, res) => {
 //UPDATE user
 export const updateUserById = async ( req, res) => {
     const { id } = req.params;
-    const { name, email, password} = req.body;
+    const { name, email, password, role} = req.body;
+
+    const passwordHash = await bcrypt.hash(password, salt);
+
 
     try {
-        const user = await User.findByIdAndUpdate(id, { name, email, password}, {new: true});
+        const user = await User.findByIdAndUpdate(id, { name, email, password: passwordHash, role}, {new: true});
         if( user ){
             res.status(200).json({ msg: "success", data: user});
         } else {
