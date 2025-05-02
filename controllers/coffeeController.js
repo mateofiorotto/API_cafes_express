@@ -32,10 +32,10 @@ export const getCoffees = async (req, res) => {
     }
 
     try {
-        const coffees = await Coffee.find(filter);
+        const coffees = await Coffee.find(filter).populate("origin");
 
         if (coffees.length === 0) {
-            return res.status(404).json({ message: "No se encontraron cafés" });
+            return res.status(200).json({ message: "Lista de cafes vacia" });
         }
 
         res.status(200).json({ message: "OK", data: coffees });

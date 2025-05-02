@@ -92,6 +92,8 @@ No se utilizan imagenes, si bien hay un campo, es un string que tendria una dire
 
 - Incluir un archivo README.md con los datos del proyecto como ser: Nombre y Apellido, Nombre de la materia, Nombre del docente, Comisión.
 
+### PD: En datos-prueba.txt se encuentran algunos JSON para copiar y pegar y no tener que estar escribiendo a mano
+
 ---
 
 ## Datos del proyecto

@@ -64,3 +64,11 @@ a:hover {
 footer p {
     color: white;
 }
+
+nav ul li a {
+    color: white !important;
+}
+
+nav ul li a:hover {
+    color: blue !important;
+}

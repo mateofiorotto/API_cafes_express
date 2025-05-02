@@ -84,7 +84,7 @@
                     <p><span class="fw-bold text-decoration-underline">NOTA:</span> Si quieres usar los métodos como POST, PUT Y DELETE deberas crear un usuario con rol admin. Por defecto es user.</p>
                 </li>
                 <li class="col-12 col-lg-4"><span class="fw-bold">Obtener Token</span>
-                    <p class="mt-2">Una vez recibido creado el usuario, puedes chequearlo en <span
+                    <p class="mt-2">Una vez creado el usuario, puedes chequearlo en <span
                             class="fw-bold">localhost:PUERTO/api/users</span>.</p>
                     <p>Luego deberas loguearte mediante el método POST en <span
                             class="fw-bold">localhost:PUERTO/api/users/login</span>. Acá vas a tener que mandar por
@@ -119,7 +119,8 @@
         <!--usos-->
         <div id="endpoints" class="p-5 docs">
             <h2 class="text-center">Endpoints</h2>
-            <p class="mb-5 text-center">¿Como usar los endpoints como POST, GET, PUT Y DELETE?</p>
+            <p class="mb-2 text-center">¿Como usar los endpoints como POST, GET, PUT Y DELETE?</p>
+            <p class="mb-5 text-center">PD: En el <a class="fw-bold" href="https://github.com/mateofiorotto/API_cafes_express" target="_blank rel=noopener noreferrer">repositorio</a> hay un archivo llamado datos-prueba.txt donde hay archivos json para probar los endpoints sin escribir a mano</p>
 
             <!-- Sección Cafés -->
             <div class="row justify-content-center align-items-center">
@@ -178,7 +179,7 @@
                             {
                                 "name": "Colombia Clásico",
                                 "description": "Café de grano grande y uniforme, reconocido por su sabor balanceado y amargura",
-                                "roastLevel": "Alto",
+                                "roastLevel": "Oscuro",
                                 "flavorNote": "Amargo, chocolate",
                                 "image": "imagen2.png",
                                 "origin": "68050c40bd6a8c9fb5e20f01"
@@ -188,7 +189,7 @@
                         <p><span class="fw-bold text-decoration-underline">NOTA</span>: debes tener el id del café
                             que quieres editar y también el id del origen por si lo queres editar. Es un endpoint
                             que requiere autorización mediante
-                            JWT.</p>
+                            JWT. No hace falta mandar todos los campos.</p>
                     </div>
                 </div>
 
@@ -253,8 +254,8 @@
                         </div>
                         </code></pre>
                         <p><span class="fw-bold text-decoration-underline">NOTA</span>: debes tener el id del origen
-                            que quieres editar. Es un endpoint que requiere autorización mediante
-                            JWT.</p>
+                            que quieres editar. Requiere autorización mediante
+                            JWT. No hace falta mandar todos los campos.</p>
                     </div>
                 </div>
 

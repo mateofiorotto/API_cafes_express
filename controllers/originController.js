@@ -6,6 +6,11 @@ import Origin from "../models/Origin.js";
 export const getOrigins = async (req, res) => {
     try {
         const origins = await Origin.find();
+
+        if (origins.length === 0) {
+            return res.status(200).json({ message: "Lista de origenes vacia" });
+        }
+
         res.status(200).json({ message: "OK", data: origins });
     } catch (error) {
         res.status(500).json({ message: "Error al obtener origenes", error });

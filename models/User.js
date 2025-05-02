@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 
 //Schema de user: name, created, email, password (sera hasheada en el CONTROLADOR al momento de crearse)
 const userSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     created: {
         type: Date,
         default: Date.now
