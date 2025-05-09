@@ -11,9 +11,9 @@ export const getOrigins = async (req, res) => {
             return res.status(200).json({ message: "Lista de origenes vacia" });
         }
 
-        res.status(200).json({ message: "OK", data: origins });
+        return res.status(200).json({ message: "OK", data: origins });
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener origenes", error });
+        return res.status(500).json({ message: "Error al obtener origenes", error });
     }
 }
 
@@ -25,14 +25,14 @@ export const getOriginById = async (req, res) => {
         const origin = await Origin.findById(id);
 
         if (!origin) {
-            res.status(404).json({ message: "Origen no encontrado" });
+            return res.status(404).json({ message: "Origen no encontrado" });
         } else {
-            res.status(200).json({ message: "OK", data: origin });
+            return res.status(200).json({ message: "OK", data: origin });
         }
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al obtener origen", error });
+        return res.status(500).json({ message: "Error al obtener origen", error });
     }
 }
 
@@ -41,16 +41,21 @@ export const createOrigin = async (req, res) => {
     const { country, region, climate, description } = req.body;
 
     if (!country || !region || !climate || !description) {
-        res.status(400).json({ message: "Faltan datos OBLIGATORIOS", data: { country, region, climate, description } });
+        return res.status(400).json({ message: "Faltan datos OBLIGATORIOS", data: { country, region, climate, description } });
     }
 
     try {
         const newOrigin = new Origin({ country, region, climate, description });
         await newOrigin.save();
-        res.status(201).json({ message: "Origen creado", data: newOrigin });
+        return res.status(201).json({ message: "Origen creado", data: newOrigin });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error al crear origen", error });
+        console.error("Error details:", error); // Agregar detalles del error
+        // Manejo de errores de validación de Mongoose
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ msg: 'Error de validación', error: error.message });
+        }
+        
+        return res.status(500).json({ msg: 'Ocurrió un error', error: error.message });
     }
 }
 
@@ -63,13 +68,18 @@ export const updateOrigin = async (req, res) => {
         const updatedOrigin = await Origin.findByIdAndUpdate(id, { country, region, climate, description }, { new: true });
 
         if (!updatedOrigin) {
-            res.status(404).json({ message: "Origen no encontrado" });
+            return res.status(404).json({ message: "Origen no encontrado" });
         } else {
-            res.status(200).json({ message: "Origen actualizado", data: updatedOrigin });
+            return res.status(200).json({ message: "Origen actualizado", data: updatedOrigin });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error al actualizar origen", error });
+        console.error("Error details:", error); // Agregar detalles del error
+        // Manejo de errores de validación de Mongoose
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ msg: 'Error de validación', error: error.message });
+        }
+        
+        return res.status(500).json({ msg: 'Ocurrió un error', error: error.message });
     }
 }
 
@@ -81,12 +91,12 @@ export const deleteOrigin = async (req, res) => {
         const origin = await Origin.findByIdAndDelete(id);
 
         if (!origin) {
-            res.status(404).json({ message: "Origen no encontrado" });
+            return res.status(404).json({ message: "Origen no encontrado" });
         } else {
-            res.status(200).json({ message: "Origen eliminado", data: origin });
+            return res.status(200).json({ message: "Origen eliminado", data: origin });
         }
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al eliminar origen", error });
+        return res.status(500).json({ message: "Error al eliminar origen", error });
     }
 }

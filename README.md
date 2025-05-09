@@ -52,6 +52,8 @@ Cuenta con un middleware en auth.js que utiliza JWT para verificar si el usuario
 
 Hay validaciones basicas para campos vacios en los metodos POST o cuando se pasa una ID inexistente en metodos que lo requieran como get x id, delete o put.
 Tambien se valida que NO haya mails (en el controlador de User) repetidos ya que en el Model aclara que es unico.
+Se valida tambien en el Model, con required, max, min y se arroja un error personalizado en caso de haberlo, pero siempre se toma antes
+el error del controlador.
 
 ---
 

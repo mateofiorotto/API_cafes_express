@@ -38,11 +38,11 @@ export const getCoffees = async (req, res) => {
             return res.status(200).json({ message: "Lista de cafes vacia" });
         }
 
-        res.status(200).json({ message: "OK", data: coffees });
+        return res.status(200).json({ message: "OK", data: coffees });
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al obtener cafés", error });
+        return res.status(500).json({ message: "Error al obtener cafés", error });
     }
 };
 
@@ -55,14 +55,14 @@ export const getCoffeeById = async (req, res) => {
 
         //si no encuentra el id 404
         if (!coffee) {
-            res.status(404).json({ message: "Cafe no encontrado" });
+            return res.status(404).json({ message: "Cafe no encontrado" });
         } else {
-            res.status(200).json({ message: "OK", data: coffee });
+            return res.status(200).json({ message: "OK", data: coffee });
         }
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al obtener cafe", error });
+        return res.status(500).json({ message: "Error al obtener cafe", error });
     }
 }
 
@@ -71,16 +71,29 @@ export const createCoffee = async (req, res) => {
     const { name, description, roastLevel, flavorNote, image, origin } = req.body;
 
     if (!name || !description || !roastLevel || !flavorNote || !image || !origin) {
-        res.status(400).json({ message: "Faltan datos OBLIGATORIOS", data: { name, description, roastLevel, flavorNote, image, origin } });
+        return res.status(400).json({ message: "Faltan datos OBLIGATORIOS", data: { name, description, roastLevel, flavorNote, image, origin } });
     }
+
+    //validar el origen si existe
+    if (origin) {
+    const originExists = await Origin.findById(origin);
+    if (!originExists) {
+        return res.status(400).json({ message: "Origen no válido" });
+    }
+}
 
     try {
         const newCoffee = new Coffee({ name, description, roastLevel, flavorNote, image, origin });
         await newCoffee.save();
-        res.status(201).json({ message: "Cafe creado", data: newCoffee });
+        return res.status(201).json({ message: "Cafe creado", data: newCoffee });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error al crear cafe", error });
+        console.error("Error details:", error); // Agregar detalles del error
+        // Manejo de errores de validación de Mongoose
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ msg: 'Error de validación', error: error.message });
+        }
+        
+        return res.status(500).json({ msg: 'Ocurrió un error', error: error.message });
     }
 }
 
@@ -89,17 +102,30 @@ export const updateCoffee = async (req, res) => {
     const { id } = req.params;
     const { name, description, roastLevel, flavorNote, image, origin } = req.body;
 
+    //validar que exista origen
+     if (origin) {
+    const originExists = await Origin.findById(origin);
+    if (!originExists) {
+        return res.status(400).json({ message: "Origen no válido" });
+    }
+}
+
     try {
         const updatedCoffee = await Coffee.findByIdAndUpdate(id, { name, description, roastLevel, flavorNote, image, origin }, { new: true });
 
         if (!updatedCoffee) {
-            res.status(404).json({ message: "Cafe no encontrado" });
+            return res.status(404).json({ message: "Cafe no encontrado" });
         } else {
-            res.status(200).json({ message: "Cafe actualizado", data: updatedCoffee });
+            return res.status(200).json({ message: "Cafe actualizado", data: updatedCoffee });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Error al actualizar cafe", error });
+        console.error("Error details:", error); // Agregar detalles del error
+        // Manejo de errores de validación de Mongoose
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ msg: 'Error de validación', error: error.message });
+        }
+        
+        return res.status(500).json({ msg: 'Ocurrió un error', error: error.message });
     }
 }
 
@@ -111,20 +137,15 @@ export const deleteCoffee = async (req, res) => {
         const coffee = await Coffee.findByIdAndDelete(id);
 
         if (!coffee) {
-            res.status(404).json({ message: "Cafe no encontrado" });
+            return res.status(404).json({ message: "Cafe no encontrado" });
         } else {
-            res.status(200).json({ message: "Cafe eliminado", data: coffee });
+            return res.status(200).json({ message: "Cafe eliminado", data: coffee });
         }
 
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al eliminar cafe", error });
+        return res.status(500).json({ message: "Error al eliminar cafe", error });
     }
 }
-
-
-// FILTRAR X roastLevel
-
-// FILTRAR X origin
 
