@@ -3,6 +3,7 @@
 Esta es una API REST simple creada para el parcial de la materia Aplicaciones Hibridas en la escuela Da Vinci.
 
 - [Consignas punto por punto](#consignas-punto-por-punto)
+- [Uso](#uso)
 - [Ir a Datos del proyecto (Alumno, profesor, materia, comisión)](#datos-del-proyecto)
 
 ---
@@ -95,6 +96,23 @@ No se utilizan imagenes, si bien hay un campo, es un string que tendria una dire
 - Incluir un archivo README.md con los datos del proyecto como ser: Nombre y Apellido, Nombre de la materia, Nombre del docente, Comisión.
 
 ### PD: En datos-prueba.txt se encuentran algunos JSON para copiar y pegar y no tener que estar escribiendo a mano
+
+---
+
+## Uso 
+
+1. Clona el repositorio con 
+
+```git clone https://github.com/mateofiorotto/API_cafes_express```
+
+2. Entra a la carpeta del proyecto y descarga las dependencias
+``` cd API_cafes_express ```
+
+``` npm install ```
+
+3. Ejecutar proyecto
+
+``` npm start ```
 
 ---
 
