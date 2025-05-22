@@ -105,7 +105,7 @@ No se utilizan imagenes, si bien hay un campo, es un string que tendria una dire
 
 ```git clone https://github.com/mateofiorotto/API_cafes_express```
 
-2. Entra a la carpeta del proyecto y descarga las dependencias
+2. Entra a la carpeta del proyecto y descarga las dependencias <br>
 
 ``` cd API_cafes_express ```
 
